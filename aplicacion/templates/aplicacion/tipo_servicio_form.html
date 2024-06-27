@@ -1,0 +1,15 @@
+{% extends "aplicacion/base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h1>{% if form.instance.pk %}Editar{% else %}Agregar{% endif %} Tipo de Servicio</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.nombre.label_tag }}
+            {{ form.nombre }}
+        </div>
+        <button type="submit" class="btn btn-primary">{% if form.instance.pk %}Actualizar{% else %}Guardar{% endif %}</button>
+        <a class="btn btn-secondary" href="{% url 'tipo_servicio_list' %}">Cancelar</a>
+    </form>
+</div>
+{% endblock content %}

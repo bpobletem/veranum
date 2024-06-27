@@ -1,0 +1,12 @@
+{% extends "aplicacion/base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h1>Eliminar Tipo de Servicio</h1>
+    <p>¿Estás seguro que deseas eliminar el tipo de servicio "{{ servicio.nombre }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a class="btn btn-secondary" href="{% url 'tipo_servicio_list' %}">Cancelar</a>
+    </form>
+</div>
+{% endblock content %}
