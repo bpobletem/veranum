@@ -1,0 +1,25 @@
+{% extends 'aplicacion/base.html' %}
+
+{% block content %}
+<h1>Reporte de Servicios</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tipo de Servicio</th>
+            <th>Descripción</th>
+            <th>Hotel</th>
+            <th>Valor</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for servicio in servicios %}
+        <tr>
+            <td>{{ servicio.tipo_servicio.nombre }}</td>
+            <td>{{ servicio.descripcion }}</td>
+            <td>{{ servicio.hotel.nombre }}</td>
+            <td>{{ servicio.valor }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

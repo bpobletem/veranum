@@ -1,0 +1,36 @@
+{% extends 'aplicacion/base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">Reportes</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Habitaciones</h5>
+                    <p class="card-text">Consulta el reporte de uso y precios de habitaciones.</p>
+                    <a href="{% url 'reporte_habitaciones' %}" class="btn btn-primary">Ver Reporte</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Servicios</h5>
+                    <p class="card-text">Consulta el reporte de uso y precios de servicios.</p>
+                    <a href="{% url 'reporte_servicios' %}" class="btn btn-primary">Ver Reporte</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Reservas</h5>
+                    <p class="card-text">Consulta el reporte de reservas realizadas.</p>
+                    <a href="{% url 'reporte_reservas' %}" class="btn btn-primary">Ver Reporte</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
