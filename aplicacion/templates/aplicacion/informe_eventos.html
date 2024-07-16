@@ -1,0 +1,69 @@
+{% extends "aplicacion/base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="d-flex justify-content-between mt-3">
+            <h2>Informe de eventos</h2>
+        </div>
+        <div class="mt-3">
+            <form method="get" class="form-inline row">
+                <div class="form-group mr-2 col-12 col-md-3">
+                    <label for="hotel" class="mr-2">Hotel:</label>
+                    <select name="hotel" id="hotel" class="form-control">
+                        <option value="">Todos</option>
+                        {% for hotel in hoteles %}
+                            <option value="{{ hotel.id }}" {% if hotel.id|stringformat:"s" == hotel_id %}selected{% endif %}>{{ hotel.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group mr-2 col-12 col-md-3">
+                    <label for="fecha_inicio" class="mr-2">Fecha Inicio:</label>
+                    <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control" value="{{ fecha_inicio|date:'Y-m-d' }}">
+                </div>
+                <div class="form-group mr-2 col-12 col-md-3">
+                    <label for="fecha_final" class="mr-2">Fecha Final:</label>
+                    <input type="date" name="fecha_final" id="fecha_final" class="form-control" value="{{ fecha_final|date:'Y-m-d' }}">
+                </div>
+                <div class="form-group col-12 col-md-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </div>
+            </form>
+        </div>
+        <div class="table-responsive mt-3">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre del Evento</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Final</th>
+                        <th>Hotel</th>
+                        <th>Capacidad</th>
+                        <th>Ingresos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for evento in eventos %}
+                    <tr>
+                        <td>{{ evento.id }}</td>
+                        <td>{{ evento.nombre }}</td>
+                        <td>{{ evento.fecha_inicio|date:"d/m/Y" }}</td>
+                        <td>{{ evento.fecha_final|date:"d/m/Y" }}</td>
+                        <td>{{ evento.hotel.nombre }}</td>
+                        <td>{{ evento.capacidad }}</td>
+                        <td>{{ evento.ingresos }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-4">
+            <h3>Resumen</h3>
+            <p>Total de eventos: {{ total_eventos }}</p>
+            <p>Capacidad total: {{ total_capacidad }}</p>
+            <p>Ingresos totales: {{ total_ingresos }}</p>
+        </div>
+    </div>
+</div>
+{% endblock content %}

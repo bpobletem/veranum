@@ -29,7 +29,7 @@ class Servicio(models.Model):
 
 
 class TipoHabitacion(models.Model):
-    nombre = models.IntegerField
+    nombre = models.CharField
 
 
 class Habitacion(models.Model):
@@ -47,9 +47,15 @@ class Pasajero(models.Model):
     numero = models.IntegerField
 
     def __str__(self):
+<<<<<<< HEAD
         return f"{self.nombre} - {self.apellido}"
 
 
+=======
+         return f"{self.nombre} - {self.apellido}"
+    
+    
+>>>>>>> origin/main
 class HabitacionReserva(models.Model):
     cantidad_servicios = models.IntegerField()
     servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE)
@@ -96,3 +102,18 @@ class OfertaReserva(models.Model):
 class OfertaServicio(models.Model):
     oferta = models.ForeignKey(Oferta, on_delete=models.CASCADE)
     servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE)
+<<<<<<< HEAD
+=======
+
+
+class Evento(models.Model):
+    nombre = models.CharField(max_length=100)
+    fecha_inicio = models.DateField()
+    fecha_final = models.DateField()
+    capacidad = models.IntegerField()
+    ingresos = models.FloatField()
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.nombre} - {self.hotel.nombre}"
+>>>>>>> origin/main

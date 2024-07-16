@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+<<<<<<< HEAD
 from django.contrib import messages
 from .models import TipoServicio, Servicio, Hotel, Habitacion, Servicio, Reserva
 from .forms import TipoServicioForm, ServicioForm
@@ -22,6 +23,11 @@ def reporte_reservas(request):
     reservas = Reserva.objects.all()
     return render(request, 'aplicacion/reporte_reservas.html', {'reservas': reservas})
 
+=======
+from .models import TipoServicio, Hotel, Evento
+from .forms import TipoServicioForm
+from datetime import datetime
+>>>>>>> origin/main
 
 def tipo_servicio_list(request):
     servicios = TipoServicio.objects.all()
@@ -62,6 +68,7 @@ def tipo_servicio_delete(request, id):
     return render(request, 'aplicacion/tipo_servicio_confirm_delete.html', {'servicio': servicio})
 
 
+<<<<<<< HEAD
 def crear_servicio(request):
     if request.method == "POST":
         form = ServicioForm(request.POST)
@@ -99,3 +106,41 @@ def eliminar_servicio(request, id):
         messages.success(request, 'Servicio eliminado con éxito')
         return redirect('lista_servicios')
     return render(request, 'aplicacion/eliminar_servicio.html', {'servicio': servicio})
+=======
+def informe_eventos(request):
+    hoteles = Hotel.objects.all()
+    eventos = Evento.objects.select_related('hotel').all()
+
+    # Obtener parámetros de filtrado
+    hotel_id = request.GET.get('hotel')
+    fecha_inicio = request.GET.get('fecha_inicio')
+    fecha_final = request.GET.get('fecha_final')
+
+    # Aplicar filtros
+    if hotel_id:
+        eventos = eventos.filter(hotel_id=hotel_id)
+    if fecha_inicio:
+        fecha_inicio_dt = datetime.strptime(fecha_inicio, '%Y-%m-%d')
+        fecha_inicio = fecha_inicio_dt.strftime('%d/%m/%Y')
+        eventos = eventos.filter(fecha_inicio__gte=fecha_inicio_dt)
+    if fecha_final:
+        fecha_final_dt = datetime.strptime(fecha_final, '%Y-%m-%d')
+        fecha_final = fecha_final_dt.strftime('%d/%m/%Y')
+        eventos = eventos.filter(fecha_final__lte=fecha_final_dt)
+
+    total_eventos = eventos.count()
+    total_capacidad = sum(evento.capacidad for evento in eventos)
+    total_ingresos = sum(evento.ingresos for evento in eventos)
+
+    data = {
+        'eventos': eventos,
+        'total_eventos': total_eventos,
+        'total_capacidad': total_capacidad,
+        'total_ingresos': total_ingresos,
+        'hoteles': hoteles,
+        'hotel_id': hotel_id,
+        'fecha_inicio': fecha_inicio,
+        'fecha_final': fecha_final,
+    }
+    return render(request, 'aplicacion/informe_eventos.html', data)
+>>>>>>> origin/main

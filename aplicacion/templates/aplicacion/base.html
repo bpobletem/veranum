@@ -12,20 +12,36 @@
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">Veranum</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item">
+<<<<<<< HEAD
               <a class="nav-link active" aria-current="page" href="{% url 'tipo_servicio_list' %}">Tipo servicios</a>
+=======
+              <a class="nav-link" aria-current="page" href="{% url "tipo_servicio_list" %}">Tipo servicios</a>
+>>>>>>> origin/main
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'lista_servicios' %}">Servicios</a>
             </li>
+<<<<<<< HEAD
             <li class="nav-item">
               <a class="nav-link" href="{% url 'reportes' %}">Reportes</a>
+=======
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Informes
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url "informe_eventos" %}">Eventos</a></li>
+                <li><a class="dropdown-item" href="#">Habitaciones</a></li>
+                <li><a class="dropdown-item" href="#">Servicios</a></li>
+              </ul>
+>>>>>>> origin/main
             </li>
           </ul>
         </div>
