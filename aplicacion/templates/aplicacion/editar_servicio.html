@@ -1,0 +1,36 @@
+{% extends "aplicacion/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="d-flex justify-content-between mt-3">
+            <h2>Editar Servicio</h2>
+            <a class="btn btn-secondary" href="{% url 'lista_servicios' %}">
+                Cancelar
+            </a>
+        </div>
+        <div class="mt-3">
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="valor" class="form-label">Valor</label>
+                    {{ form.valor|as_crispy_field }}
+                </div>
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    {{ form.descripcion|as_crispy_field }}
+                </div>
+                <div class="mb-3">
+                    <label for="hotel" class="form-label">Hotel</label>
+                    {{ form.hotel|as_crispy_field }}
+                </div>
+                <div class="mb-3">
+                    <label for="tipo_servicio" class="form-label">Tipo de Servicio</label>
+                    {{ form.tipo_servicio|as_crispy_field }}
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

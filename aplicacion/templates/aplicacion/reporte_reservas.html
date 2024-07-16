@@ -1,0 +1,25 @@
+{% extends 'aplicacion/base.html' %}
+
+{% block content %}
+<h1>Reporte de Reservas</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Pasajero</th>
+            <th>Habitación</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Fin</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reserva in reservas %}
+        <tr>
+            <td>{{ reserva.pasajero.nombre }} {{ reserva.pasajero.apellido }}</td>
+            <td>{{ reserva.habitacion.numero }}</td>
+            <td>{{ reserva.fecha_inicio }}</td>
+            <td>{{ reserva.fecha_final }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

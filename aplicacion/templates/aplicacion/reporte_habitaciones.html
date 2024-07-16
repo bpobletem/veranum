@@ -1,0 +1,27 @@
+{% extends 'aplicacion/base.html' %}
+
+{% block content %}
+<h1>Reporte de Habitaciones</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Número</th>
+            <th>Valor</th>
+            <th>Hotel</th>
+            <th>Capacidad</th>
+            <th>Baños</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for habitacion in habitaciones %}
+        <tr>
+            <td>{{ habitacion.numero }}</td>
+            <td>{{ habitacion.valor }}</td>
+            <td>{{ habitacion.hotel.nombre }}</td>
+            <td>{{ habitacion.cantidad_personas }}</td>
+            <td>{{ habitacion.cantidad_banos }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

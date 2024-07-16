@@ -1,0 +1,43 @@
+{% extends "aplicacion/base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="d-flex justify-content-between mt-3">
+            <h2>Lista de Servicios</h2>
+            <a class="btn btn-primary" href="{% url 'crear_servicio' %}">
+                Agregar Servicio
+            </a>
+        </div>
+        <div class="table-responsive mt-3">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Valor</th>
+                        <th>Descripción</th>
+                        <th>Hotel</th>
+                        <th>Tipo de Servicio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for servicio in servicios %}
+                    <tr>
+                        <td>{{ servicio.id }}</td>
+                        <td>{{ servicio.valor }}</td>
+                        <td>{{ servicio.descripcion }}</td>
+                        <td>{{ servicio.hotel }}</td>
+                        <td>{{ servicio.tipo_servicio }}</td>
+                        <td>
+                            <a class="btn btn-info" href="{% url 'editar_servicio' servicio.id %}">Editar</a>
+                            <a class="btn btn-danger" href="{% url 'eliminar_servicio' servicio.id %}">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}
