@@ -5,11 +5,18 @@ from .models import Hotel, TipoServicio, Servicio, Evento, TipoHabitacion, Habit
 class AdmTipoServicio(admin.ModelAdmin):
     list_display = ['nombre']
 
+
 class AdmHotel(admin.ModelAdmin):
     list_display = ['nombre', 'ubicacion']
 
+
 class AdmEvento(admin.ModelAdmin):
     list_display = ['nombre', 'capacidad', 'ingresos', 'hotel']
+
+
+class AdmHabitacion(admin.ModelAdmin):
+    list_display = ['numero', 'hotel', 'valor',
+                    'cantidad_personas', 'cantidad_banos']
 
 
 admin.site.register(Hotel, AdmHotel)
@@ -26,3 +33,9 @@ admin.site.register(Oferta)
 admin.site.register(OfertaReserva)
 admin.site.register(OfertaServicio)
 admin.site.register(Evento, AdmEvento)
+
+
+admin.site.register(TipoServicio, AdmTipoServicio)
+admin.site.register(Hotel, AdmHotel)
+admin.site.register(Evento, AdmEvento)
+admin.site.register(Habitacion, AdmHabitacion)

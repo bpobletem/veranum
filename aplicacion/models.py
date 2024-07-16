@@ -32,12 +32,16 @@ class TipoHabitacion(models.Model):
     nombre = models.IntegerField
 
 
+
 class Habitacion(models.Model):
-    numero = models.IntegerField
+    numero = models.IntegerField()
     valor = models.FloatField()
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
-    cantidad_personas = models.IntegerField
-    cantidad_banos = models.IntegerField
+    cantidad_personas = models.IntegerField()
+    cantidad_banos = models.IntegerField()
+    fecha_inicio = models.DateField()
+    fecha_final = models.DateField()
+
 
 
 class Pasajero(models.Model):
