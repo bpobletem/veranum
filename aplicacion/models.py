@@ -96,3 +96,14 @@ class OfertaReserva(models.Model):
 class OfertaServicio(models.Model):
     oferta = models.ForeignKey(Oferta, on_delete=models.CASCADE)
     servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE)
+
+class Evento(models.Model):
+    nombre = models.CharField(max_length=100)
+    fecha_inicio = models.DateField()
+    fecha_final = models.DateField()
+    capacidad = models.IntegerField()
+    ingresos = models.FloatField()
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.nombre} - {self.hotel.nombre}"

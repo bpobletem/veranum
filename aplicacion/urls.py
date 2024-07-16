@@ -1,7 +1,7 @@
 from django.urls import path, include
 from .views import (tipo_servicio_list, tipo_servicio_create, tipo_servicio_update, tipo_servicio_delete,
                     crear_servicio, lista_servicios, eliminar_servicio, editar_servicio, reporte_habitaciones,
-                    reporte_servicios, reporte_reservas, reportes
+                    reporte_servicios, reporte_reservas, reportes, informe_eventos, informe_servicios
                     )
 urlpatterns = [
     path('', tipo_servicio_list, name='tipo_servicio_list'),
@@ -18,4 +18,6 @@ urlpatterns = [
     path('reporte_servicios/', reporte_servicios, name='reporte_servicios'),
     path('reporte_reservas/', reporte_reservas, name='reporte_reservas'),
     path('reportes/', reportes, name='reportes'),
+    path('informe-eventos/', informe_eventos, name='informe_eventos'),
+    path('informe-servicios/', informe_servicios, name='informe_servicios'),
 ]

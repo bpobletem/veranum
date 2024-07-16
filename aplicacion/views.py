@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from .models import TipoServicio, Servicio, Hotel, Habitacion, Servicio, Reserva
+from .models import TipoServicio, Servicio, Hotel, Habitacion, Servicio, Reserva, Evento
 from .forms import TipoServicioForm, ServicioForm
+from datetime import datetime
 
 
 def reportes(request):
@@ -99,3 +100,73 @@ def eliminar_servicio(request, id):
         messages.success(request, 'Servicio eliminado con éxito')
         return redirect('lista_servicios')
     return render(request, 'aplicacion/eliminar_servicio.html', {'servicio': servicio})
+
+def informe_eventos(request):
+    hoteles = Hotel.objects.all()
+    eventos = Evento.objects.select_related('hotel').all()
+
+    # Obtener parámetros de filtrado
+    hotel_id = request.GET.get('hotel')
+    fecha_inicio = request.GET.get('fecha_inicio')
+    fecha_final = request.GET.get('fecha_final')
+
+    # Aplicar filtros
+    if hotel_id:
+        eventos = eventos.filter(hotel_id=hotel_id)
+    if fecha_inicio:
+        fecha_inicio_dt = datetime.strptime(fecha_inicio, '%Y-%m-%d')
+        fecha_inicio = fecha_inicio_dt.strftime('%d/%m/%Y')
+        eventos = eventos.filter(fecha_inicio__gte=fecha_inicio_dt)
+    if fecha_final:
+        fecha_final_dt = datetime.strptime(fecha_final, '%Y-%m-%d')
+        fecha_final = fecha_final_dt.strftime('%d/%m/%Y')
+        eventos = eventos.filter(fecha_final__lte=fecha_final_dt)
+
+    total_eventos = eventos.count()
+    total_capacidad = sum(evento.capacidad for evento in eventos)
+    total_ingresos = sum(evento.ingresos for evento in eventos)
+
+    data = {
+        'eventos': eventos,
+        'total_eventos': total_eventos,
+        'total_capacidad': total_capacidad,
+        'total_ingresos': total_ingresos,
+        'hoteles': hoteles,
+        'hotel_id': hotel_id,
+        'fecha_inicio': fecha_inicio,
+        'fecha_final': fecha_final,
+    }
+    return render(request, 'aplicacion/informe_eventos.html', data)
+
+def informe_servicios(request):
+    hoteles = Hotel.objects.all()
+    servicios = Servicio.objects.select_related('hotel', 'tipo_servicio').all()
+
+    # Obtener parámetros de filtrado
+    hotel_id = request.GET.get('hotel')
+    fecha_inicio = request.GET.get('fecha_inicio')
+    fecha_final = request.GET.get('fecha_final')
+
+    # Aplicar filtros
+    if hotel_id:
+        servicios = servicios.filter(hotel_id=hotel_id)
+    if fecha_inicio:
+        fecha_inicio_dt = datetime.strptime(fecha_inicio, '%Y-%m-%d')
+        servicios = servicios.filter(servicio__hotel__reserva__fecha_inicio__gte=fecha_inicio_dt)
+    if fecha_final:
+        fecha_final_dt = datetime.strptime(fecha_final, '%Y-%m-%d')
+        servicios = servicios.filter(servicio__hotel__reserva__fecha_final__lte=fecha_final_dt)
+
+    total_servicios = servicios.count()
+    total_valor = sum(servicio.valor for servicio in servicios)
+
+    data = {
+        'servicios': servicios,
+        'total_servicios': total_servicios,
+        'total_valor': total_valor,
+        'hoteles': hoteles,
+        'hotel_id': hotel_id,
+        'fecha_inicio': fecha_inicio,
+        'fecha_final': fecha_final,
+    }
+    return render(request, 'aplicacion/informe_servicios.html', data)

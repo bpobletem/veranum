@@ -24,9 +24,17 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'lista_servicios' %}">Servicios</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'reportes' %}">Reportes</a>
-            </li>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Informes
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url "informe_eventos" %}">Eventos</a></li>
+              <li><a class="dropdown-item" href="#">Habitaciones</a></li>
+              <li><a class="dropdown-item" href="{% url "informe_servicios" %}">Servicios</a></li>
+            </ul>
+          </li>
           </ul>
         </div>
       </div>
