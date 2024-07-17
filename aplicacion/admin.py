@@ -15,27 +15,23 @@ class AdmEvento(admin.ModelAdmin):
 
 
 class AdmHabitacion(admin.ModelAdmin):
-    list_display = ['numero', 'hotel', 'valor',
-                    'cantidad_personas', 'cantidad_banos']
+    list_display = ['numero', 'hotel', 'valor', 'cantidad_personas', 'cantidad_banos']
+
+
+class AdmTipoHabitacion(admin.ModelAdmin):
+    list_display = ['nombre']
+
+class AdmPasajero(admin.ModelAdmin):
+    list_display = ['nombre']
+
+class AdmReserva(admin.ModelAdmin):
+    list_display = ['fecha_inicio', 'fecha_final']
 
 
 admin.site.register(Hotel, AdmHotel)
 admin.site.register(TipoServicio, AdmTipoServicio)
-admin.site.register(Servicio)
-admin.site.register(TipoHabitacion)
-admin.site.register(Habitacion)
-admin.site.register(Pasajero)
-admin.site.register(HabitacionReserva)
-admin.site.register(Reserva)
-admin.site.register(HistorialPrecios)
-admin.site.register(Administrador)
-admin.site.register(Oferta)
-admin.site.register(OfertaReserva)
-admin.site.register(OfertaServicio)
-admin.site.register(Evento, AdmEvento)
-
-
-admin.site.register(TipoServicio, AdmTipoServicio)
-admin.site.register(Hotel, AdmHotel)
 admin.site.register(Evento, AdmEvento)
 admin.site.register(Habitacion, AdmHabitacion)
+admin.site.register(TipoHabitacion, AdmTipoHabitacion)
+admin.site.register(Pasajero, AdmPasajero)
+admin.site.register(Reserva, AdmReserva)

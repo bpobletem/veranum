@@ -178,8 +178,7 @@ def informe_servicios(request):
 
 def informe_ocupacion(request):
     hoteles = Hotel.objects.all()
-    reservas = Reserva.objects.select_related(
-        'habitacion', 'habitacion__hotel').all()
+    reservas = Reserva.objects.select_related('habitacion', 'habitacion__hotel').all()
 
     # Obtener parámetros de filtrado
     hotel_id = request.GET.get('hotel')
@@ -197,18 +196,15 @@ def informe_ocupacion(request):
         reservas = reservas.filter(fecha_final__lte=fecha_final_dt)
 
     # Calcular el total de habitaciones y habitaciones ocupadas
-    total_habitaciones = Habitacion.objects.filter(
-        hotel_id=hotel_id).count() if hotel_id else Habitacion.objects.count()
+    total_habitaciones = Habitacion.objects.filter(hotel_id=hotel_id).count() if hotel_id else Habitacion.objects.count()
     habitaciones_ocupadas = reservas.count()
 
     # Calcular el porcentaje de ocupación
-    porcentaje_ocupacion = (
-        habitaciones_ocupadas / total_habitaciones) * 100 if total_habitaciones > 0 else 0
+    porcentaje_ocupacion = (habitaciones_ocupadas / total_habitaciones) * 100 if total_habitaciones > 0 else 0
 
     # Calcular el precio promedio de las habitaciones reservadas
-    total_precio = sum(reserva.habitacion.valor for reserva in reservas)
-    precio_promedio = total_precio / \
-        habitaciones_ocupadas if habitaciones_ocupadas > 0 else 0
+    total_ingresos = sum(reserva.habitacion.valor for reserva in reservas)
+    precio_promedio = total_ingresos / habitaciones_ocupadas if habitaciones_ocupadas > 0 else 0
 
     data = {
         'reservas': reservas,
@@ -216,6 +212,7 @@ def informe_ocupacion(request):
         'habitaciones_ocupadas': habitaciones_ocupadas,
         'porcentaje_ocupacion': porcentaje_ocupacion,
         'precio_promedio': precio_promedio,
+        'total_ingresos' : total_ingresos,
         'hoteles': hoteles,
         'hotel_id': hotel_id,
         'fecha_inicio': fecha_inicio,

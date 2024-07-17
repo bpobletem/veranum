@@ -29,7 +29,7 @@ class Servicio(models.Model):
 
 
 class TipoHabitacion(models.Model):
-    nombre = models.IntegerField
+    nombre = models.CharField(max_length=50)
 
 
 
@@ -39,40 +39,39 @@ class Habitacion(models.Model):
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
     cantidad_personas = models.IntegerField()
     cantidad_banos = models.IntegerField()
-    fecha_inicio = models.DateField()
-    fecha_final = models.DateField()
+    tipo_habitacion = models.ForeignKey(TipoHabitacion, on_delete=models.CASCADE, default="Suite")
 
 
 
 class Pasajero(models.Model):
     nombre = models.CharField(max_length=30,  null=False)
     apellido = models.CharField(max_length=30,  null=False)
-    correo = models.EmailField
-    numero = models.IntegerField
+    correo = models.EmailField(default=("correo@correo.cl"))
+    numero = models.IntegerField(default=12345678)
 
     def __str__(self):
         return f"{self.nombre} - {self.apellido}"
 
 
 class HabitacionReserva(models.Model):
-    cantidad_servicios = models.IntegerField()
-    servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE)
+    servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE, null=True)
+    habitacion = models.ForeignKey(Habitacion, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f"{self.pasajero} {self.habitacion}"
 
 
 class Reserva(models.Model):
-    fecha_inicio = models.DateField
-    fecha_final = models.DateField
+    fecha_inicio = models.DateField(null=True)
+    fecha_final = models.DateField(null=True)
     habitacion = models.ForeignKey(Habitacion, on_delete=models.CASCADE)
     pasajero = models.ForeignKey(Pasajero, on_delete=models.CASCADE)
 
 
 class HistorialPrecios(models.Model):
-    fecha_inicio = models.DateField
-    fecha_final = models.DateField
-    valor = models.FloatField
+    fecha_inicio = models.DateField(null=True)
+    fecha_final = models.DateField(null=True)
+    valor = models.FloatField(null=True)
 
     def __str__(self):
         return f"{self.fecha_inicio} - {self.fecha_final} - {self.valor}"
@@ -87,9 +86,9 @@ class Administrador(models.Model):
 
 
 class Oferta(models.Model):
-    fecha_inicio = models.DateField
-    fecha_final = models.DateField
-    porcentaje_dcto = models.IntegerField
+    fecha_inicio = models.DateField(null=True)
+    fecha_final = models.DateField(null=True)
+    porcentaje_dcto = models.IntegerField(null=True)
 
 
 class OfertaReserva(models.Model):
